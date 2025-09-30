@@ -1,0 +1,4 @@
+go mod init go-playground
+go mod tidy
+go build
+go run app.go / go run .

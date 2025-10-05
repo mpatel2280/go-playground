@@ -1,7 +1,8 @@
+cd ~/code/project_go/go-playground/sqlc-example
+
 sqlc generate
 
 migrate -path "./migrations" -database "mysql://root:root@tcp(localhost:3306)/sqlc_db" up
-
 
 
 go run .
@@ -10,6 +11,9 @@ go run .
 curl -X POST http://localhost:8080/classes \
   -H "Content-Type: application/json" \
   -d '{"name": "Mathematics"}'
+
+# GEt all classes
+curl http://localhost:8080/classes
 
 # Create a student in class 1
 curl -X POST http://localhost:8080/students \

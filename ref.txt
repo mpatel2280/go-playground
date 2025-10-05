@@ -2,3 +2,8 @@ go mod init go-playground
 go mod tidy
 go build
 go run app.go / go run .
+
+go install golang.org/x/website/tour@latest
+tour 
+(if err - export PATH=$PATH:$(go env GOPATH)/bin)
+http://127.0.0.1:3999/tour/welcome/1

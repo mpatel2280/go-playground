@@ -1,0 +1,22 @@
+CREATE DATABASE IF NOT EXISTS sqlc_db;
+
+USE sqlc_db;
+
+CREATE TABLE IF NOT EXISTS classes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    class_id INT,
+    FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS assignments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    student_id INT,
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
+);

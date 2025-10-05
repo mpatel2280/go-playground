@@ -1,0 +1,29 @@
+sqlc generate
+
+migrate -path "./migrations" -database "mysql://root:root@tcp(localhost:3306)/sqlc_db" up
+
+
+
+go run .
+
+# Create a class
+curl -X POST http://localhost:8080/classes \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Mathematics"}'
+
+# Create a student in class 1
+curl -X POST http://localhost:8080/students \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Alice", "class_id": 1}'
+
+# Get student with class info
+curl http://localhost:8080/students/1
+
+# Create an assignment for student 1
+curl -X POST http://localhost:8080/assignments \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Homework 1", "student_id": 1}'
+
+# Get all assignments of a student
+curl http://localhost:8080/students/1/assignments
+

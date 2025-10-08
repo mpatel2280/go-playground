@@ -7,3 +7,20 @@ go install golang.org/x/website/tour@latest
 tour 
 (if err - export PATH=$PATH:$(go env GOPATH)/bin)
 http://127.0.0.1:3999/tour/welcome/1
+
+
+# Challenges and Solutions 
+mkdir challenges
+cd challenges
+go mod init challenges/type_assertions
+
+touch type_assertions.go
+
+cd ..
+mkdir solutions
+cd solutions
+go mod init challenges/solutions
+
+touch solutions.go
+
+go mod edit -replace challenges/type_assertions=../type_assertions

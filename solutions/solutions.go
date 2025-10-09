@@ -3,6 +3,7 @@ package main
 import (
 	"challenges"
 	"fmt"
+	"sort"
 	"time"
 )
 
@@ -27,6 +28,40 @@ func (e Engineer) Age() int {
 	return years
 }
 
+func getEngg(name string, dob time.Time) Engineer {
+	engg := Engineer{Name: name, DOB: dob}
+
+	var programmers []challenges.Employee
+	programmers = append(programmers, engg)
+
+	for _, p := range programmers {
+		fmt.Printf("%s and is %d years old.\n", p.Language(), p.Age())
+	}
+	return engg
+}
+
+// SortByPrice sorts flights from highest to lowest
+func SortByPrice(flights []challenges.Flight) []challenges.Flight {
+	// Simple Bubble sort or use sort.Slice for brevity
+	// We'll use the standard library for cleaner code
+	imported := make([]challenges.Flight, len(flights))
+	copy(imported, flights)
+
+	// Sort using sort.Slice
+	// (you can also import "sort" at the top of the file)
+	sort.Slice(imported, func(i, j int) bool {
+		return imported[i].Price < imported[j].Price
+	})
+
+	return imported
+}
+
+func printFlights(flights []challenges.Flight) {
+	for _, flight := range flights {
+		fmt.Printf("Origin: %s, Destination: %s, Price: %d\n", flight.Origin, flight.Destination, flight.Price)
+	}
+}
+
 func main() {
 	fmt.Println("Type Assertions!")
 
@@ -43,18 +78,18 @@ func main() {
 		panic(err)
 	}
 
+	fmt.Println("getEngg!")
 	getEngg(dynamicDev.Name, dob)
 
-}
-
-func getEngg(name string, dob time.Time) Engineer {
-	engg := Engineer{Name: name, DOB: dob}
-
-	var programmers []challenges.Employee
-	programmers = append(programmers, engg)
-
-	for _, p := range programmers {
-		fmt.Printf("%s and is %d years old.\n", p.Language(), p.Age())
+	fmt.Println("SortByPrice!")
+	flights := []challenges.Flight{
+		{Origin: "New York", Destination: "London", Price: 800},
+		{Origin: "Paris", Destination: "Berlin", Price: 120},
+		{Origin: "Tokyo", Destination: "Sydney", Price: 950},
+		{Origin: "Delhi", Destination: "Dubai", Price: 300},
 	}
-	return engg
+
+	sortedList := SortByPrice(flights)
+	printFlights(sortedList)
+
 }

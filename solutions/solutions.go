@@ -3,6 +3,7 @@ package main
 import (
 	"challenges"
 	"fmt"
+	"slices"
 	"sort"
 	"time"
 )
@@ -41,19 +42,39 @@ func getEngg(name string, dob time.Time) Engineer {
 }
 
 // SortByPrice sorts flights from highest to lowest
-func SortByPrice(flights []challenges.Flight) []challenges.Flight {
+// Deprecated: Use SortByPrice2 Or SortByPrice instead.
+func SortByPrice1(flights []challenges.Flight) []challenges.Flight {
 	// Simple Bubble sort or use sort.Slice for brevity
 	// We'll use the standard library for cleaner code
-	imported := make([]challenges.Flight, len(flights))
-	copy(imported, flights)
+
+	// imported := make([]challenges.Flight, len(flights))
+	// copy(imported, flights)
 
 	// Sort using sort.Slice
 	// (you can also import "sort" at the top of the file)
-	sort.Slice(imported, func(i, j int) bool {
-		return imported[i].Price < imported[j].Price
+	sort.Slice(flights, func(i, j int) bool {
+		return flights[i].Price < flights[j].Price
 	})
 
-	return imported
+	return flights
+}
+
+// SortByPrice sorts flights from highest to lowest
+// Deprecated: Use SortByPrice instead.
+func SortByPrice2(flights []challenges.Flight) []challenges.Flight {
+	sorted := slices.Clone(flights)
+	slices.SortFunc(sorted, func(a, b challenges.Flight) int {
+		return a.Price - b.Price // negative = a < b
+	})
+	return sorted
+}
+
+// SortByPrice sorts flights from highest to lowest
+func SortByPrice(flights []challenges.Flight) []challenges.Flight {
+	sorted := make([]challenges.Flight, len(flights))
+	copy(sorted, flights)
+	sort.Sort(challenges.ByPrice(sorted))
+	return sorted
 }
 
 func printFlights(flights []challenges.Flight) {
@@ -87,6 +108,7 @@ func main() {
 		{Origin: "Paris", Destination: "Berlin", Price: 120},
 		{Origin: "Tokyo", Destination: "Sydney", Price: 950},
 		{Origin: "Delhi", Destination: "Dubai", Price: 300},
+		{Origin: "Mumbai", Destination: "Dubai", Price: 250},
 	}
 
 	sortedList := SortByPrice(flights)

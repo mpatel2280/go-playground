@@ -1,3 +1,3 @@
-module challenges/type_assertions
+module challenges
 
 go 1.24.5

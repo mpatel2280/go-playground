@@ -1,4 +1,4 @@
-package type_assertions
+package challenges
 
 type Developer struct {
 	Name string

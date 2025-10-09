@@ -24,3 +24,11 @@ go mod init challenges/solutions
 touch solutions.go
 
 go mod edit -replace challenges/type_assertions=../type_assertions
+
+
+go mod tidy
+go build
+go clean -modcache
+go mod tidy
+go build
+go run .

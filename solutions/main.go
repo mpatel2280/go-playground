@@ -38,6 +38,9 @@ func main() {
 	fmt.Println(uniqueNames)
 
 	freqCheck()
+
+	fmt.Println("map and structs!")
+	mapStructs()
 }
 
 func freqCheck() {
@@ -48,4 +51,11 @@ func freqCheck() {
 	}
 	fmt.Println(freq) // map[go:3 java:1 python:1]
 
+}
+
+func mapStructs() {
+	var m map[string]challenges.User = make(map[string]challenges.User)
+	m["one"] = challenges.User{Name: "Alice", Age: 25}
+	m["two"] = challenges.User{Name: "Bob", Age: 30}
+	fmt.Println(m) // Output: map[one:{Alice 25} two:{Bob 30}]
 }
